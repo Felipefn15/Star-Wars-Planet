@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Planetas</title>
+  </h:head>
+  <h:body>
+    <div style="text-align: center; width: 100%">
+      <h1>Planetas</h1>
+    </div>
+    <h:form id="formulario">
+      <h:panelGrid id="dados" columns="2" width="100%">
+        <h:outputText value="Nome: "/>
+        <h:inputText value="#{PlanetaMB.planeta.nome}" style="width: 100%"/>
+        <h:outputText value="Clima: "/>
+        <h:inputTextarea value="#{PlanetaMB.planeta.clima}" 
+          cols="40" rows="5" style="width: 100%"/>
+        <h:outputText value="Terreno: "/>
+        <h:inputText value="#{PlanetaMB.planeta.terreno}"  
+          style="width: 100%"/>
+        <h:commandButton value="Salvar" action="#{PlanetaMB.salvar}"/>
+      </h:panelGrid>
+      <h:panelGroup id="groupPlanetas">
+        <h:dataTable id="planetas" value="#{PlanetaMB.palestras}" 
+          var="p" width="100%">
+          <h:column>
+            <h2><h:outputText value="#{p.nome}"/></h2>
+            <i><b><h:outputText value="#{p.clima}"/></b></i><br/>
+            <h:outputText value="#{p.terreno}"/><br/>
+            <h:commandButton value="Editar" action="#{PlanetaMB.editar(p)}">
+              <f:ajax render=":formulario:dados"/>
+            </h:commandButton>
+            <h:commandButton value="Remover" action="#{PlanetaMB.remover(p)}">
+              <f:ajax render=":formulario:groupPlanetas"/>
+            </h:commandButton>
+          </h:column>
+        </h:dataTable>
+      </h:panelGroup>
+    </h:form>
+  </h:body>
+</html>
